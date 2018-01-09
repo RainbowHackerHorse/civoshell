@@ -11,6 +11,7 @@
 # This script is meant to be sourced from civoshell, and should NOT be executed on its own!
 
 civoshell_apikeys() {
+	civoshelvar_apikeyheader="Authorization: bearer $civoshellvar_userapikey"
 
 }
 
@@ -33,9 +34,9 @@ civoshell_userapikey_create() {
 	sleep 2
 	echo "Creating $HOME/.config/.apikey.civoshell"
 	cat > "$HOME"/.config/.apikey.civoshell << EOF
-	#!/bin/sh
-	civoshellvar_userapikey="$civoshellvar_setuserapikey"
-	EOF
+#!/bin/sh
+civoshellvar_userapikey="$civoshellvar_setuserapikey"
+EOF
 	echo "Done! Now testing!"
 	if [ -f "$HOME"/.config/.apikey.civoshell ]; then
 		echo "API Key successfully created. Now importing."
