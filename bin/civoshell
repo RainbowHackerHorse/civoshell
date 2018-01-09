@@ -12,6 +12,8 @@
 # You can find the primary repository at https://github.com/RainbowHackerHorse/civoshell
 # civoshell is released under the 2-Clause BSD license.
 
+civoshell_userapikey=NULL
+
 main() {
 	civoshell_getargs "$@" || civoshell_errorcode
 }
@@ -39,14 +41,18 @@ civoshell_errorcode() {
 	exit 1
 }
 
-if [ -d ../lib ]; then
-	civoshell_libdir=../lib
-else 
-	civoshell_libdir=/usr/local/lib/civoshell/lib
-fi
-for civoshell_functions_list in "${civoshell_libdir}"/*; do 
-	. "$civoshell_functions_list" 
-done
+civoshell_sourcefunctions() {
+	if [ -d ../lib ]; then
+		civoshell_libdir=../lib
+	else 
+		civoshell_libdir=/usr/local/lib/civoshell/lib
+	fi
+	for civoshell_functions_list in "${civoshell_libdir}"/*; do 
+		. "$civoshell_functions_list" 
+	done
+}
 
+civoshell_sourcefunctions || exit 1
+civoshell_checkapikey || exit 1
 main "$@" || exit 1
 exit
