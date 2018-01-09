@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# civoshell is a CLI program that lets you interact with CivoCloud's API locally,
+# in an easy to use manner.
+# It is an alternative to the official civo client, which is written in Go, and available at:
+# https://github.com/absolutedevops/civo
+# civoshell is an open-source 3rd party project and is not affiliated with Absolute DevOps LTD.
+# civoshell does attempt to maintain compatibility with civo, however some differences will be seen 
+# from time to time. 
+#
+# civoshell is (c) 2018 RainbowHackerHorse
+# You can find the primary repository at https://github.com/RainbowHackerHorse/civoshell
+# civoshell is released under the 2-Clause BSD license.
+
+main() {
+	civoshell_getargs "$@" || civoshell_errorcode
+}
+
+civoshell_getargs() {
+	while :; do
+		case $1 in
+			-h|--help)
+				civoshell_showhelp
+				exit
+			;;
+			*)
+				break
+		esac
+		shift
+	done
+}
+
+civoshell_errorcode() {
+	echo "Error. Please run civoshell --help for information on using civoshell correctly!"
+	return 1
+}
+
+if [ -d ../lib ]; then
+	civoshell_libdir=../lib
+else 
+	civoshell_libdir=/usr/local/lib/civoshell/lib
+fi
+for civoshell_functions_list in "${civoshell_libdir}"/*; do 
+	. "$civoshell_functions_list" 
+done
+
+main "$@" || exit 1
+exit
