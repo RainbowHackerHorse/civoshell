@@ -20,7 +20,11 @@ civoshell_getargs() {
 	while :; do
 		case $1 in
 			-h|--help)
-				civoshell_showhelp
+				if [ "$2" ]; then
+					civoshell_showhelp $2 || return 1
+				else
+					civoshell_showhelp || return 1
+				fi
 				exit
 			;;
 			*)
@@ -31,8 +35,8 @@ civoshell_getargs() {
 }
 
 civoshell_errorcode() {
-	echo "Error. Please run civoshell --help for information on using civoshell correctly!"
-	return 1
+	echo "Please run civoshell --help for information on using civoshell correctly!"
+	exit 1
 }
 
 if [ -d ../lib ]; then
