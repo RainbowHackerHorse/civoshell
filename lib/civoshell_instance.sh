@@ -2,7 +2,32 @@
 # civoshell_instance
 
 civoshell_instance() {
-
+while :; do
+		case $1 in
+			region=)
+				if [ "$2" ]; then
+					for testinstanceregion in lon1
+						do
+							if [ "$testinstanceregion" = "$2" ]; then
+						    	validregion=1
+						    	break
+							fi
+						done;
+					if [ "$validregion" = "1" ]; then
+						civoshellvar_instance_region=$2
+					else
+						echo "Warning. $2 is not a valid CivoCloud region."
+						echo "Please run civoshell regions to see a list of available regions."
+						return 1
+					fi
+				fi
+				exit
+			;;
+			*)
+				break
+		esac
+		shift
+	done
 }
 
 civoshell_instance_create() {
