@@ -23,11 +23,28 @@ while :; do
 				fi
 				exit
 			;;
+			hostname=)
+				if [ "$2" ]; then
+					civoshellvar_instance_hostname=$2
+					civoshellcheck_instance_hostname=1
+				else
+					echo "Error. Please supply a hostname."
+					return 1
+				fi
+			;;
 			*)
 				break
 		esac
 		shift
 	done
+	civoshell_instance_varchecks || return 1
+}
+
+civoshell_instance_varchecks() {
+	if [ ! civoshellcheck_instance_hostname = 1 ]; then
+		echo "Error. Hostname is required. Use civoshell instance create hostname=foo"
+		return 1
+	fi
 }
 
 civoshell_instance_create() {
