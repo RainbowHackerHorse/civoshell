@@ -13,3 +13,4 @@ civoshell is (c) 2018 RainbowHackerHorse
 You can find the primary repository at https://github.com/RainbowHackerHorse/civoshell
 civoshell is released under the 2-Clause BSD license.
 ```
+## This is a work in progress. It's not ready yet.
