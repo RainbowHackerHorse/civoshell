@@ -10,6 +10,8 @@
 #
 # This script is meant to be sourced from civoshell, and should NOT be executed on its own!
 
+# I'd hash the key but their API doesn't support that yet so.... *shrug* #
+
 civoshell_apikeys() {
 	civoshelvar_apikeyheader="Authorization: bearer $civoshellvar_userapikey"
 
